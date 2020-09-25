@@ -14,6 +14,6 @@ jobs:
         key: ${{ secrets.VPS_KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          ls
+          ls -a
           chmod 755 ~/database-cronjob/script/prepare.sh
           sh ~/database-cronjob/script/prepare.sh
