@@ -11,6 +11,7 @@ postgres_user = os.getenv('postgres_user') if None else "postgres"
 postgres_pw = os.getenv('postgres_pw') if None else "postgres"
 project_postgres_port = os.getenv('project_postgres_port') if None else "5432"
 comment_postgres_port = os.getenv('comment_postgres_port') if None else "5432"
+print("host: " + host + "postgres_user" + postgres_user + "postgres_pw" + postgres_pw)
 
 project_cur = connect_postgresql("scrumproject", postgres_user, postgres_pw, host, project_postgres_port)
 comment_cur = connect_postgresql("message", postgres_user, postgres_pw, host, comment_postgres_port)
