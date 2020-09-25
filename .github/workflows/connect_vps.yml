@@ -13,4 +13,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.VPS_KEY }}
         port: ${{ secrets.PORT }}
-        script: sh ./script/script_on_ci.sh
+        script: |
+          chmod 755 ./script/script_on_ci.sh
+          sh ./script/script_on_ci.sh
