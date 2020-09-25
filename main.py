@@ -26,6 +26,6 @@ redis_port = os.getenv('redis_port') if not None else "6379"
 client = connect_redis(host=host, port=redis_port, password=redis_pw)
 push_data_from_postgresql(project_board_dict, client, "project")
 push_data_from_postgresql(board_card_dict, client, "board")
-push_data_from_postgresql(project_board_dict, client, "project")
+push_data_from_postgresql(comment_card_dict, client, "card")
 
 print("database_cronjob: over")
