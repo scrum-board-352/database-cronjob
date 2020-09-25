@@ -1,0 +1,13 @@
+name: Connect Vps
+on: push
+
+jobs:
+  connect:
+    name: SSH job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Connect Step
+      env:
+        NAME: ${{ secrets.NAME }}
+      run: |
+        echo $MY_VAR NAME .
