@@ -8,4 +8,4 @@ else
   git pull
 fi
 
-pip3 install -r requirements.txt
+pip3 install -r ~/database-cronjob/requirements.txt
