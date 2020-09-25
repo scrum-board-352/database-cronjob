@@ -1,13 +1,16 @@
-name: Connect Vps
-on: push
-
+name: remote ssh command
+on: [push]
 jobs:
-  connect:
-    name: SSH job
+
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: Connect Step
-      env:
-        NAME: ${{ secrets.NAME }}
-      run: |
-        echo $MY_VAR NAME .
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.VPS_KEY }}
+        port: ${{ secrets.PORT }}
+        script: whoami
