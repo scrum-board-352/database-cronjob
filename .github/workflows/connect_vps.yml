@@ -27,3 +27,5 @@ jobs:
           echo repo updata success
 
           pip install -r requirements.txt
+
+          python main.py
