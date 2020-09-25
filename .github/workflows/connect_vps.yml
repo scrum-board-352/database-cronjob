@@ -18,9 +18,12 @@ jobs:
           if [ ! -d "./database-cronjob/" ];then
             echo repo not exit.
             git clone https://github.com/scrum-board-352/database-cronjob.git
+            cd ./database-cronjob
           else
             echo repo exit.
             cd ./database-cronjob
             git pull
           fi
           echo repo updata success
+
+          pip install -r requirements.txt
