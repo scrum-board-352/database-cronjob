@@ -10,4 +10,4 @@ jobs:
       env:
         MY_VAR: Hi there! My name is
       run: |
-        echo $MY_VAR $NAME.
+        echo $MY_VAR ${{ secrets.NAME }}.
