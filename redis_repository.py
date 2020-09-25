@@ -6,7 +6,7 @@ def connect_redis(host="127.0.0.1", port=6379, password='', db=0):
     pool = redis.ConnectionPool(host=host, port=port, password=password, db=db)
     client = redis.StrictRedis(connection_pool=pool)
 
-    return client
+    return client.smembers()
 
 
 def push_data_from_postgresql(data_dict, client, table):
