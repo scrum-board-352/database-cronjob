@@ -21,7 +21,7 @@ jobs:
           else
             echo repo exit.
             cd ./database-cronjob
-            git pull
+            git pull --rebase
           fi
           echo repo updata success
 
