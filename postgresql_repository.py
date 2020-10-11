@@ -9,15 +9,22 @@ def connect_postgresql(database, user="postgres", password="postgres", host="loc
 
 def search_table_and_create_subtype_dict(cur, select_statement):
     cur.execute(select_statement)
-    subtype_dict = dict()
+    subtype_dict1 = dict()
+    subtype_dict2 = dict()
 
     select_rows = cur.fetchall()
 
     for row in select_rows:
-        if subtype_dict.get(row[1]) is None:
-            subtype_dict[row[1]] = [row[0]]
+        if subtype_dict1.get(row[1]) is None:
+            subtype_dict1[row[1]] = [row[0]]
         else:
-            subtype_dict[row[1]].append(row[0])
+            subtype_dict1[row[1]].append(row[0])
 
-    return subtype_dict
+    for row in select_rows:
+        if subtype_dict2.get(row[0]) is None:
+            subtype_dict2[row[0]] = [row[1]]
+        else:
+            subtype_dict2[row[0]].append(row[1])
+
+    return subtype_dict1, subtype_dict2
 

@@ -18,18 +18,24 @@ project_cur = connect_postgresql("scrumproject", postgres_user, postgres_pw, hos
 comment_cur = connect_postgresql("message", postgres_user, postgres_pw, host, comment_postgres_port)
 people_cur = connect_postgresql("people", postgres_user, postgres_pw, host, people_postgres_port)
 
-user_team_dict = search_table_and_create_subtype_dict(people_cur, user_team_statement)
-project_board_dict = search_table_and_create_subtype_dict(project_cur, project_board_statement)
-board_card_dict = search_table_and_create_subtype_dict(project_cur, board_card_statement)
-comment_card_dict = search_table_and_create_subtype_dict(comment_cur, comment_card_statement)
+user_team_dict, team_user_dict = search_table_and_create_subtype_dict(people_cur, user_team_statement)
+project_board_dict, board_project_dict = search_table_and_create_subtype_dict(project_cur, project_board_statement)
+board_card_dict, card_board_dict = search_table_and_create_subtype_dict(project_cur, board_card_statement)
+card_comment_dict, comment_card_dict = search_table_and_create_subtype_dict(comment_cur, comment_card_statement)
 
 redis_pw = os.getenv('redis_pw')
 redis_port = os.getenv('redis_port') if os.getenv('redis_port') is not None else "6379"
 
-client = connect_redis(host=host, port=redis_port, password=redis_pw)
-push_data_from_postgresql(user_team_dict, client, "people")
-push_data_from_postgresql(project_board_dict, client, "project")
-push_data_from_postgresql(board_card_dict, client, "board")
-push_data_from_postgresql(comment_card_dict, client, "card")
+client_db0 = connect_redis(host=host, port=redis_port, password=redis_pw)
+client_db1 = connect_redis(host=host, port=redis_port, password=redis_pw, db=1)
+push_data_from_postgresql(user_team_dict, client_db0, "people")
+push_data_from_postgresql(project_board_dict, client_db0, "project")
+push_data_from_postgresql(board_card_dict, client_db0, "board")
+push_data_from_postgresql(card_comment_dict, client_db0, "card")
+
+push_data_from_postgresql(team_user_dict, client_db1, "team")
+push_data_from_postgresql(board_project_dict, client_db1, "board")
+push_data_from_postgresql(card_board_dict, client_db1, "card")
+push_data_from_postgresql(comment_card_dict, client_db1, "comment")
 
 print("database_cronjob: over")
